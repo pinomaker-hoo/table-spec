@@ -3,6 +3,7 @@ import TablePreview from './components/TablePreview';
 import DownloadButton from './components/DownloadButton';
 import ERDDownloadButton from './components/ERDDownloadButton';
 import ERDPreview from './components/ERDPreview';
+import GoogleAd from './components/GoogleAd';
 import { useFileUpload } from './hooks/useFileUpload';
 import { useDDLParser } from './hooks/useDDLParser';
 
@@ -34,6 +35,11 @@ function App() {
           )}
         </div>
       </header>
+
+      {/* Ad - Top Banner */}
+      <div className="max-w-7xl mx-auto px-6 pt-4">
+        <GoogleAd slot="YOUR_AD_SLOT_1" />
+      </div>
 
       {/* Main */}
       <main className="max-w-7xl mx-auto px-6 py-8">
@@ -73,6 +79,9 @@ function App() {
 
             {/* Table Preview */}
             <TablePreview tables={tables} />
+
+            {/* Ad - Bottom */}
+            <GoogleAd slot="YOUR_AD_SLOT_2" />
           </div>
         )}
       </main>
