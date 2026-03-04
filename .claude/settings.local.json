@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cd /Users/pinomaker/Documents/develop/dbcsv/dbcsv-app && cp -r . .. && rm -rf dbcsv-app && ls -la)",
+      "Bash(cd /Users/pinomaker/Documents/develop/dbcsv && npm install 2>&1)",
+      "Bash(npm install xlsx-js-style 2>&1 && npm install -D tailwindcss @tailwindcss/vite 2>&1\\\\)",
+      "Bash(npx tsc --noEmit 2>&1)",
+      "Bash(npx vite build 2>&1)",
+      "Bash(sleep 2 && curl -s http://localhost:5173 | head -20)",
+      "Bash(node -e \":*)"
+    ]
+  }
+}
