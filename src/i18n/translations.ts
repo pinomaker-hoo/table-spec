@@ -41,6 +41,43 @@ const translations = {
       `${tables} Tables, ${rels} Relationships`,
     fit: 'Fit',
 
+    // Guide - How to Use
+    guideTitle: 'How to Use',
+    guideStep1Title: 'Prepare DDL File',
+    guideStep1Desc: 'Prepare your SQL DDL file (.sql, .ddl, .txt) containing CREATE TABLE statements.',
+    guideStep2Title: 'Upload File',
+    guideStep2Desc: 'Drag & drop or click the upload area above to select your file.',
+    guideStep3Title: 'View & Download',
+    guideStep3Desc: 'Review your table specification and ERD, then download as Excel or PNG.',
+
+    // Guide - Features
+    featuresTitle: 'Key Features',
+    feature1Title: 'DDL Parsing',
+    feature1Desc: 'Supports MySQL, PostgreSQL, Oracle and more SQL dialects.',
+    feature2Title: 'Auto Specification',
+    feature2Desc: 'Automatically generates table specifications with columns, types, and constraints.',
+    feature3Title: 'ERD Visualization',
+    feature3Desc: 'Visualizes entity relationships between tables as an interactive diagram.',
+    feature4Title: 'Excel & PNG Export',
+    feature4Desc: 'Download your specification as a styled Excel file or ERD as PNG image.',
+
+    // Guide - Example
+    exampleTitle: 'Live Example',
+    exampleDDLLabel: 'Sample DDL Input',
+    exampleResultLabel: 'Generated Table Specification',
+    exampleCTA: 'Try it yourself — upload your DDL file above!',
+
+    // About
+    aboutTitle: 'About TableSpec',
+    aboutDesc: 'TableSpec is a free, open-source web tool that converts DDL SQL files into clean table specifications and ERD diagrams. All processing happens entirely in your browser — your files are never uploaded to any server. Built for developers, DBAs, and anyone who works with databases and needs quick, readable documentation from their schema definitions.',
+
+    // Footer
+    footerAbout: 'A free web tool that converts DDL SQL into table specifications and ERD diagrams. All processing happens in your browser.',
+    footerLinks: 'Legal',
+    footerDeveloper: 'Developer',
+    privacyPolicy: 'Privacy Policy',
+    termsOfService: 'Terms of Service',
+
     // Errors
     fileReadError: 'Failed to read the file.',
     noCreateTable: 'No CREATE TABLE statement found.',
@@ -85,6 +122,43 @@ const translations = {
     tablesRelationships: (tables: number, rels: number) =>
       `${tables} Tables, ${rels} Relationships`,
     fit: 'Fit',
+
+    // Guide - How to Use
+    guideTitle: '사용 방법',
+    guideStep1Title: 'DDL 파일 준비',
+    guideStep1Desc: 'CREATE TABLE 구문이 포함된 SQL DDL 파일(.sql, .ddl, .txt)을 준비하세요.',
+    guideStep2Title: '파일 업로드',
+    guideStep2Desc: '위 업로드 영역에 드래그 앤 드롭하거나 클릭하여 파일을 선택하세요.',
+    guideStep3Title: '결과 확인 & 다운로드',
+    guideStep3Desc: '테이블 명세서와 ERD를 확인한 후, Excel 또는 PNG로 다운로드하세요.',
+
+    // Guide - Features
+    featuresTitle: '주요 기능',
+    feature1Title: 'DDL 파싱',
+    feature1Desc: 'MySQL, PostgreSQL, Oracle 등 다양한 SQL 문법을 지원합니다.',
+    feature2Title: '명세서 자동 생성',
+    feature2Desc: '컬럼, 데이터 타입, 제약조건이 포함된 테이블 명세서를 자동으로 생성합니다.',
+    feature3Title: 'ERD 시각화',
+    feature3Desc: '테이블 간의 관계를 인터랙티브 다이어그램으로 시각화합니다.',
+    feature4Title: 'Excel & PNG 내보내기',
+    feature4Desc: '명세서를 스타일링된 Excel 파일로, ERD를 PNG 이미지로 다운로드할 수 있습니다.',
+
+    // Guide - Example
+    exampleTitle: '예시 미리보기',
+    exampleDDLLabel: '샘플 DDL 입력',
+    exampleResultLabel: '생성된 테이블 명세서',
+    exampleCTA: '직접 해보세요 — 위에서 DDL 파일을 업로드하세요!',
+
+    // About
+    aboutTitle: 'TableSpec 소개',
+    aboutDesc: 'TableSpec은 DDL SQL 파일을 깔끔한 테이블 명세서와 ERD 다이어그램으로 변환하는 무료 웹 도구입니다. 모든 처리가 브라우저에서 이루어지므로 파일이 서버로 전송되지 않습니다. 개발자, DBA, 그리고 데이터베이스 스키마에서 빠르고 읽기 쉬운 문서가 필요한 모든 분을 위해 만들었습니다.',
+
+    // Footer
+    footerAbout: 'DDL SQL을 테이블 명세서와 ERD 다이어그램으로 변환하는 무료 웹 도구입니다. 모든 처리가 브라우저에서 이루어집니다.',
+    footerLinks: '법적 고지',
+    footerDeveloper: '개발자',
+    privacyPolicy: '개인정보처리방침',
+    termsOfService: '이용약관',
 
     // Errors
     fileReadError: '파일을 읽는데 실패했습니다.',

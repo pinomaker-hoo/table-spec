@@ -4,6 +4,8 @@ import DownloadButton from './components/DownloadButton';
 import ERDDownloadButton from './components/ERDDownloadButton';
 import ERDPreview from './components/ERDPreview';
 import GoogleAd from './components/GoogleAd';
+import Guide from './components/Guide';
+import Footer from './components/Footer';
 import { useFileUpload } from './hooks/useFileUpload';
 import { useDDLParser } from './hooks/useDDLParser';
 import { useLanguage } from './i18n/LanguageContext';
@@ -24,7 +26,7 @@ function App() {
   const error = translateError(fileError) || translateError(parseError);
 
   return (
-    <div className="min-h-screen bg-[#1A202C]">
+    <div className="min-h-screen bg-[#1A202C] flex flex-col">
       {/* Header */}
       <header className="bg-[#2D3748] border-b border-[#4A5568]">
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
@@ -80,9 +82,12 @@ function App() {
       <main className="max-w-7xl mx-auto px-6 py-8">
         {/* File Upload */}
         {!file && (
-          <div className="max-w-2xl mx-auto">
-            <FileUpload onFileSelect={handleFile} loading={loading} />
-          </div>
+          <>
+            <div className="max-w-2xl mx-auto">
+              <FileUpload onFileSelect={handleFile} loading={loading} />
+            </div>
+            <Guide />
+          </>
         )}
 
         {/* Error */}
@@ -122,6 +127,8 @@ function App() {
           </div>
         )}
       </main>
+
+      <Footer />
     </div>
   );
 }
