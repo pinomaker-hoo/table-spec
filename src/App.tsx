@@ -6,12 +6,22 @@ import ERDPreview from './components/ERDPreview';
 import GoogleAd from './components/GoogleAd';
 import { useFileUpload } from './hooks/useFileUpload';
 import { useDDLParser } from './hooks/useDDLParser';
+import { useLanguage } from './i18n/LanguageContext';
 
 function App() {
   const { file, content, loading, error: fileError, handleFile, reset } = useFileUpload();
   const { tables, error: parseError } = useDDLParser(content);
+  const { lang, setLang, t } = useLanguage();
 
-  const error = fileError || parseError;
+  const translateError = (key: string | null): string | null => {
+    if (!key) return null;
+    if (key === 'fileReadError') return t.fileReadError;
+    if (key === 'noCreateTable') return t.noCreateTable;
+    if (key.startsWith('parseError:')) return t.parseError(key.slice('parseError:'.length));
+    return key;
+  };
+
+  const error = translateError(fileError) || translateError(parseError);
 
   return (
     <div className="min-h-screen bg-[#1A202C]">
@@ -22,17 +32,42 @@ function App() {
             <img src="/logo.png" alt="TableSpec" className="w-8 h-8 rounded" />
             <div>
               <h1 className="text-lg font-bold text-white tracking-tight">TableSpec</h1>
-              <p className="text-xs text-[#A0AEC0]">DDL SQL to Table Specification</p>
+              <p className="text-xs text-[#A0AEC0]">{t.subtitle}</p>
             </div>
           </div>
-          {file && (
-            <button
-              onClick={reset}
-              className="text-sm text-[#A0AEC0] hover:text-white px-4 py-2 rounded-lg border border-[#4A5568] hover:border-[#63B3ED] hover:bg-[#2A4365] transition-colors"
-            >
-              다시 업로드
-            </button>
-          )}
+          <div className="flex items-center gap-3">
+            {/* Language Switcher */}
+            <div className="flex items-center border border-[#4A5568] rounded-lg overflow-hidden text-sm">
+              <button
+                onClick={() => setLang('en')}
+                className={`px-3 py-1.5 transition-colors ${
+                  lang === 'en'
+                    ? 'bg-[#4DB8B0] text-white'
+                    : 'text-[#A0AEC0] hover:text-white hover:bg-[#4A5568]'
+                }`}
+              >
+                EN
+              </button>
+              <button
+                onClick={() => setLang('ko')}
+                className={`px-3 py-1.5 transition-colors ${
+                  lang === 'ko'
+                    ? 'bg-[#4DB8B0] text-white'
+                    : 'text-[#A0AEC0] hover:text-white hover:bg-[#4A5568]'
+                }`}
+              >
+                KO
+              </button>
+            </div>
+            {file && (
+              <button
+                onClick={reset}
+                className="text-sm text-[#A0AEC0] hover:text-white px-4 py-2 rounded-lg border border-[#4A5568] hover:border-[#63B3ED] hover:bg-[#2A4365] transition-colors"
+              >
+                {t.resetUpload}
+              </button>
+            )}
+          </div>
         </div>
       </header>
 
@@ -63,10 +98,12 @@ function App() {
             {/* Info bar */}
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <span className="text-sm text-[#A0AEC0]">
-                  <strong className="text-white">{file?.name}</strong>에서{' '}
-                  <strong className="text-[#4DB8B0]">{tables.length}개</strong> 테이블을 찾았습니다
-                </span>
+                <span
+                  className="text-sm text-[#A0AEC0]"
+                  dangerouslySetInnerHTML={{
+                    __html: t.tableFound(file?.name || '', tables.length),
+                  }}
+                />
               </div>
               <div className="flex items-center gap-3">
                 <ERDDownloadButton tables={tables} />

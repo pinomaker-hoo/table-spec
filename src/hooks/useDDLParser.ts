@@ -15,14 +15,14 @@ export function useDDLParser(sqlContent: string | null) {
     try {
       const parsed = parseDDL(sqlContent);
       if (parsed.length === 0) {
-        setError('CREATE TABLE 구문을 찾을 수 없습니다.');
+        setError('noCreateTable');
         setTables([]);
       } else {
         setTables(parsed);
         setError(null);
       }
     } catch (e) {
-      setError(`파싱 오류: ${(e as Error).message}`);
+      setError(`parseError:${(e as Error).message}`);
       setTables([]);
     }
   }, [sqlContent]);

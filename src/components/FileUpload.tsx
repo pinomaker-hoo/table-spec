@@ -1,4 +1,5 @@
 import { useState, useCallback, useRef } from 'react';
+import { useLanguage } from '../i18n/LanguageContext';
 
 interface FileUploadProps {
   onFileSelect: (file: File) => void;
@@ -8,6 +9,7 @@ interface FileUploadProps {
 export default function FileUpload({ onFileSelect, loading }: FileUploadProps) {
   const [isDragging, setIsDragging] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
+  const { t } = useLanguage();
 
   const handleDragOver = useCallback((e: React.DragEvent) => {
     e.preventDefault();
@@ -75,14 +77,14 @@ export default function FileUpload({ onFileSelect, loading }: FileUploadProps) {
         </div>
 
         {loading ? (
-          <p className="text-[#A0AEC0]">파일을 읽는 중...</p>
+          <p className="text-[#A0AEC0]">{t.readingFile}</p>
         ) : (
           <>
             <p className="text-lg font-medium text-[#E2E8F0]">
-              DDL SQL 파일을 여기에 드래그하세요
+              {t.dragPrompt}
             </p>
             <p className="text-sm text-[#718096]">
-              또는 클릭하여 파일을 선택하세요 (.sql, .ddl, .txt)
+              {t.selectFile}
             </p>
           </>
         )}

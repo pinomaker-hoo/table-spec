@@ -1,5 +1,6 @@
 import { useState, useMemo } from 'react';
 import type { ParsedTable } from '../types/ddl';
+import { useLanguage } from '../i18n/LanguageContext';
 
 interface TablePreviewProps {
   tables: ParsedTable[];
@@ -58,6 +59,7 @@ export default function TablePreview({ tables }: TablePreviewProps) {
     () => [...tables].sort((a, b) => a.name.localeCompare(b.name)),
     [tables]
   );
+  const { t } = useLanguage();
 
   const isSummary = activeTab === -1;
   const table = !isSummary ? sortedTables[activeTab] : null;
@@ -74,11 +76,11 @@ export default function TablePreview({ tables }: TablePreviewProps) {
               : 'border-transparent text-[#A0AEC0] hover:text-[#E2E8F0] hover:bg-[#4A5568]/50'
           }`}
         >
-          테이블 목록
+          {t.tableList}
         </button>
-        {sortedTables.map((t, i) => (
+        {sortedTables.map((tbl, i) => (
           <button
-            key={t.name}
+            key={tbl.name}
             onClick={() => setActiveTab(i)}
             className={`px-4 py-2.5 text-sm font-medium whitespace-nowrap border-b-2 transition-colors ${
               i === activeTab
@@ -86,7 +88,7 @@ export default function TablePreview({ tables }: TablePreviewProps) {
                 : 'border-transparent text-[#A0AEC0] hover:text-[#E2E8F0] hover:bg-[#4A5568]/50'
             }`}
           >
-            {t.name}
+            {tbl.name}
           </button>
         ))}
       </div>
@@ -96,8 +98,8 @@ export default function TablePreview({ tables }: TablePreviewProps) {
           {/* Summary info */}
           <div className="p-4 bg-[#2D3748] border-b border-[#4A5568]">
             <div className="flex items-center gap-4 text-sm">
-              <span className="font-semibold text-[#E2E8F0]">테이블 목록</span>
-              <span className="ml-auto text-[#718096]">{tables.length}개 테이블</span>
+              <span className="font-semibold text-[#E2E8F0]">{t.tableList}</span>
+              <span className="ml-auto text-[#718096]">{t.tableCount(tables.length)}</span>
             </div>
           </div>
 
@@ -107,26 +109,26 @@ export default function TablePreview({ tables }: TablePreviewProps) {
               <thead>
                 <tr className="bg-[#1A202C] text-[#A0AEC0]">
                   <th className="px-3 py-2 text-center w-12">#</th>
-                  <th className="px-3 py-2 text-left">테이블명</th>
-                  <th className="px-3 py-2 text-left">테이블 설명</th>
-                  <th className="px-3 py-2 text-left">FK 관련 테이블</th>
+                  <th className="px-3 py-2 text-left">{t.tableName}</th>
+                  <th className="px-3 py-2 text-left">{t.tableDesc}</th>
+                  <th className="px-3 py-2 text-left">{t.fkRelation}</th>
                 </tr>
               </thead>
               <tbody>
-                {sortedTables.map((t, i) => {
-                  const related = relMap.get(t.name);
+                {sortedTables.map((tbl, i) => {
+                  const related = relMap.get(tbl.name);
                   const relatedStr = related && related.size > 0
                     ? Array.from(related).sort().join(', ')
                     : '-';
                   return (
                     <tr
-                      key={t.name}
+                      key={tbl.name}
                       className={`${i % 2 === 0 ? 'bg-[#2D3748]' : 'bg-[#2D3748]/60'} cursor-pointer hover:bg-[#4DB8B0]/10 transition-colors`}
                       onClick={() => setActiveTab(i)}
                     >
                       <td className="px-3 py-2 text-center text-[#718096]">{i + 1}</td>
-                      <td className="px-3 py-2 font-mono text-[#4DB8B0] hover:underline">{t.name}</td>
-                      <td className="px-3 py-2 text-[#A0AEC0]">{t.comment || '-'}</td>
+                      <td className="px-3 py-2 font-mono text-[#4DB8B0] hover:underline">{tbl.name}</td>
+                      <td className="px-3 py-2 text-[#A0AEC0]">{tbl.comment || '-'}</td>
                       <td className="px-3 py-2 text-[#718096] text-xs font-mono">{relatedStr}</td>
                     </tr>
                   );
@@ -144,7 +146,7 @@ export default function TablePreview({ tables }: TablePreviewProps) {
               {table.comment && (
                 <span className="text-[#718096]">— {table.comment}</span>
               )}
-              <span className="ml-auto text-[#718096]">{table.columns.length}개 컬럼</span>
+              <span className="ml-auto text-[#718096]">{t.columnCount(table.columns.length)}</span>
             </div>
           </div>
 
@@ -154,12 +156,12 @@ export default function TablePreview({ tables }: TablePreviewProps) {
               <thead>
                 <tr className="bg-[#1A202C] text-[#A0AEC0]">
                   <th className="px-3 py-2 text-center w-12">#</th>
-                  <th className="px-3 py-2 text-left">컬럼명</th>
-                  <th className="px-3 py-2 text-center">데이터타입</th>
-                  <th className="px-3 py-2 text-center w-20">NULL</th>
-                  <th className="px-3 py-2 text-center">기본값</th>
-                  <th className="px-3 py-2 text-center">제약조건</th>
-                  <th className="px-3 py-2 text-left">정의/설명</th>
+                  <th className="px-3 py-2 text-left">{t.columnName}</th>
+                  <th className="px-3 py-2 text-center">{t.dataType}</th>
+                  <th className="px-3 py-2 text-center w-20">{t.nullable}</th>
+                  <th className="px-3 py-2 text-center">{t.defaultValue}</th>
+                  <th className="px-3 py-2 text-center">{t.constraints}</th>
+                  <th className="px-3 py-2 text-left">{t.definition}</th>
                 </tr>
               </thead>
               <tbody>
@@ -181,7 +183,7 @@ export default function TablePreview({ tables }: TablePreviewProps) {
                             col.nullable ? 'text-[#718096]' : 'text-red-400 font-medium'
                           }`}
                         >
-                          {col.nullable ? 'NULL' : 'NOT NULL'}
+                          {col.nullable ? t.nullable : t.notNull}
                         </span>
                       </td>
                       <td className="px-3 py-2 text-center text-xs text-[#718096]">

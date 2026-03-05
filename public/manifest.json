@@ -1,12 +1,12 @@
 {
-  "name": "TableSpec - DDL SQL을 테이블 명세서로 변환",
+  "name": "TableSpec - Convert DDL SQL to Table Specification",
   "short_name": "TableSpec",
-  "description": "DDL SQL 파일을 업로드하면 테이블 명세서와 ERD를 자동으로 생성합니다.",
+  "description": "Upload DDL SQL files to automatically generate table specifications and ERD diagrams.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#1A202C",
   "theme_color": "#1A202C",
-  "lang": "ko",
+  "lang": "en",
   "icons": [
     {
       "src": "/logo.png",

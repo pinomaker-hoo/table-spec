@@ -16,7 +16,7 @@ export function useFileUpload() {
       setLoading(false);
     };
     reader.onerror = () => {
-      setError('파일을 읽는데 실패했습니다.');
+      setError('fileReadError');
       setLoading(false);
     };
     reader.readAsText(f);

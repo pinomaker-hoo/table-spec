@@ -3,6 +3,7 @@ import type { ParsedTable } from '../types/ddl';
 import { computeERDLayout } from '../erd/erdLayout';
 import { renderERDToCanvas } from '../erd/erdRenderer';
 import { generateAndDownloadERD } from '../erd/erdGenerator';
+import { useLanguage } from '../i18n/LanguageContext';
 
 interface ERDPreviewProps {
   tables: ParsedTable[];
@@ -16,6 +17,7 @@ export default function ERDPreview({ tables }: ERDPreviewProps) {
   const [dragging, setDragging] = useState(false);
   const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
   const [downloading, setDownloading] = useState(false);
+  const { t } = useLanguage();
 
   const layout = useMemo(() => computeERDLayout(tables), [tables]);
 
@@ -114,9 +116,9 @@ export default function ERDPreview({ tables }: ERDPreviewProps) {
       {/* Toolbar */}
       <div className="flex items-center justify-between px-4 py-2 bg-[#2D3748] border-b border-[#4A5568]">
         <div className="flex items-center gap-2">
-          <span className="text-sm font-semibold text-[#E2E8F0]">ERD Diagram</span>
+          <span className="text-sm font-semibold text-[#E2E8F0]">{t.erdDiagram}</span>
           <span className="text-xs text-[#718096]">
-            {tables.length} Tables, {layout.relationships.length} Relationships
+            {t.tablesRelationships(tables.length, layout.relationships.length)}
           </span>
         </div>
         <div className="flex items-center gap-2">
@@ -137,7 +139,7 @@ export default function ERDPreview({ tables }: ERDPreviewProps) {
             onClick={handleFitToScreen}
             className="px-2 py-1 text-xs text-[#A0AEC0] bg-[#1A202C] border border-[#4A5568] rounded hover:bg-[#4A5568] hover:text-white transition-colors"
           >
-            Fit
+            {t.fit}
           </button>
           <button
             onClick={handleDownload}

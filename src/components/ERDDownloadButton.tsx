@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import type { ParsedTable } from '../types/ddl';
 import { generateAndDownloadERD } from '../erd/erdGenerator';
+import { useLanguage } from '../i18n/LanguageContext';
 
 interface ERDDownloadButtonProps {
   tables: ParsedTable[];
@@ -8,6 +9,7 @@ interface ERDDownloadButtonProps {
 
 export default function ERDDownloadButton({ tables }: ERDDownloadButtonProps) {
   const [loading, setLoading] = useState(false);
+  const { t } = useLanguage();
 
   const handleDownload = async () => {
     setLoading(true);
@@ -34,7 +36,7 @@ export default function ERDDownloadButton({ tables }: ERDDownloadButtonProps) {
           d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zm10 0a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zm10 0a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"
         />
       </svg>
-      {loading ? 'ERD 생성 중...' : `ERD 다운로드 (${tables.length}개 테이블)`}
+      {loading ? t.erdGenerating : t.erdDownload(tables.length)}
     </button>
   );
 }
