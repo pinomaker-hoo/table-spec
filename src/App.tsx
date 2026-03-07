@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import FileUpload from './components/FileUpload';
 import TablePreview from './components/TablePreview';
 import DownloadButton from './components/DownloadButton';
@@ -38,6 +39,13 @@ function App() {
             </div>
           </div>
           <div className="flex items-center gap-3">
+            {/* ERD Builder Link */}
+            <Link
+              to="/erd-builder"
+              className="text-sm text-white px-4 py-1.5 rounded-lg bg-[#4DB8B0] hover:bg-[#45A89F] transition-colors"
+            >
+              {t.erdBuilderCTA}
+            </Link>
             {/* Language Switcher */}
             <div className="flex items-center border border-[#4A5568] rounded-lg overflow-hidden text-sm">
               <button
